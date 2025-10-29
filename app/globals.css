@@ -1,26 +1,108 @@
+/* app/globals.css */
+
+/* Tailwind v4 */
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ---------- Design tokens (Light mode defaults) ---------- */
+@theme {
+  /* colors (use with bg-*, text-*, border-*) */
+  --color-background: #ffffff;
+  --color-foreground: #1a1d20;
+
+  --color-card: #f7f9fb;
+  --color-card-foreground: #1a1d20;
+
+  --color-popover: #ffffff;
+  --color-popover-foreground: #1a1d20;
+
+  /* brand / accent ("steel") */
+  --color-primary: #6c7b8c;
+  --color-primary-foreground: #ffffff;
+
+  --color-secondary: #9aa3b0;
+  --color-secondary-foreground: #ffffff;
+
+  --color-muted: #eef1f4;
+  --color-muted-foreground: #6d737a;
+
+  --color-accent: #e9edf0;
+  --color-accent-foreground: #1a1d20;
+
+  --color-destructive: #d84646;
+  --color-destructive-foreground: #ffffff;
+
+  --color-border: #d8dde2;
+  --color-input: #d8dde2;
+  --color-ring: #6c7b8c;
+
+  /* radius (use with rounded-[--radius]) */
+  --radius: 1rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ---------- Dark mode overrides (via data-theme) ---------- */
+[data-theme="dark"] {
+  --color-background: #0e1114;
+  --color-foreground: #f2f4f8;
+
+  --color-card: #161a1f;
+  --color-card-foreground: #f2f4f8;
+
+  --color-popover: #161a1f;
+  --color-popover-foreground: #f2f4f8;
+
+  --color-primary: #9aa3b0;
+  --color-primary-foreground: #0e1114;
+
+  --color-secondary: #2b2f35;
+  --color-secondary-foreground: #f2f4f8;
+
+  --color-muted: #1c2025;
+  --color-muted-foreground: #90949b;
+
+  --color-accent: #23272d;
+  --color-accent-foreground: #f2f4f8;
+
+  --color-destructive: #e54848;
+  --color-destructive-foreground: #ffffff;
+
+  --color-border: #252a30;
+  --color-input: #252a30;
+  --color-ring: #9aa3b0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* optional: glossy grid helper bg (matches your inspo) */
+.bg-glossy-grid {
+  background:
+    radial-gradient(1000px 600px at 70% -200px, rgba(255,255,255,.05), transparent 60%),
+    radial-gradient(800px 500px at -100px 200px, rgba(255,255,255,.05), transparent 60%),
+    linear-gradient(to bottom, rgba(255,255,255,.02), transparent 30%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0px, rgba(255,255,255,.04) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0px, rgba(255,255,255,.04) 1px, transparent 1px, transparent 40px);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
+          mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
 }
 
+/* base */
+html { scroll-behavior: smooth; }
+html, body { height: 100%; }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-background text-foreground antialiased;
+}
+
+/* utility shorthands (optional) */
+/* Base */
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-[--radius] px-4 py-2 text-sm font-medium;
+}
+
+/* Variants: DON'T @apply btn here */
+.btn-primary {
+  @apply bg-primary text-primary-foreground hover:opacity-90;
+}
+.btn-outline {
+  @apply border border-border hover:bg-accent;
+}
+
+.card {
+  @apply rounded-[--radius] border border-border bg-card text-card-foreground shadow-[0_10px_30px_rgba(0,0,0,.12)];
 }

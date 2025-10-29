@@ -1,9 +1,23 @@
-export default function HomePage() {
+import Hero from "@/components/hero/Hero";
+import AboutUs from "@/components/about/AboutUs";
+import Services from "@/components/services/Services";
+import Experience from "@/components/experience/Experience";
+import Projects from "@/components/projects/Projects";
+import Skills from "@/components/skills/Skills";
+import BlogList from "@/components/blog/BlogList";
+import ContactUs from "@/components/contact/ContactUs";
+
+export default function Home() {
   return (
-    <div>
-      <h1 className="text-3xl font-semibold">Home (Public)</h1>
-      <p className="mt-2 text-muted-foreground">This is the public homepage.</p>
-    </div>
+    <>
+      <Hero />
+      <AboutUs />
+      <Services />
+      <Experience />
+      <Projects />
+      <Skills />
+      <BlogList />
+      <ContactUs />
+    </>
   );
 }
-

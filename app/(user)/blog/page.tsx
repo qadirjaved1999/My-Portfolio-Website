@@ -1,12 +1,14 @@
+// app/(user)/blog/[slug]/page.tsx
 import Link from "next/link";
 
-export default function BlogListPage() {
+export default function BlogDetail({ params }: { params: { slug: string } }) {
   return (
-    <div>
-      <h1 className="text-2xl font-semibold">Blog List</h1>
-      <ul className="mt-4 list-disc pl-5">
-        <li><Link href="/blog/hello-world">Open: /blog/hello-world</Link></li>
-      </ul>
+    <div className="py-10">
+      <div className="mb-6">
+        <Link href="/#blog" className="btn btn-outline">← Back to Blog</Link>
+      </div>
+      <h1 className="text-3xl font-semibold">Blog: {params.slug}</h1>
+      <p className="mt-2 text-muted-foreground">Article content…</p>
     </div>
   );
 }
