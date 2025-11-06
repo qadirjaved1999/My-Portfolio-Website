@@ -1,77 +1,101 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { Button } from "../ui/button";
+import { ThemeToggle } from "../theme/ThemeToggle";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Detect scroll to apply shadow or background
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const NavLinks = () => (
     <>
-      <a href="/#home" className="hover:opacity-80">
-        Home
-      </a>
-      <a href="/#about" className="hover:opacity-80">
-        About
-      </a>
-      <a href="/#services" className="hover:opacity-80">
-        Services
-      </a>
-      <a href="/#experience" className="hover:opacity-80">
-        Experience
-      </a>
-      <a href="/#projects" className="hover:opacity-80">
-        Projects
-      </a>
-      <a href="/#skills" className="hover:opacity-80">
-        Skills
-      </a>
-      <a href="/#blog" className="hover:opacity-80">
-        Blog
-      </a>
-      <a href="/#contact" className="hover:opacity-80">
-        Contact
-      </a>
-      <a href="/admin" className="hover:opacity-80">
+      {[
+        "home",
+        "about",
+        "services",
+        "experience",
+        "projects",
+        "skills",
+        "blog",
+        "contact",
+      ].map((id) => (
+        <a
+          key={id}
+          href={`/#${id}`}
+          className="relative font-medium text-foreground/90 hover:text-primary transition-colors"
+        >
+          {id.charAt(0).toUpperCase() + id.slice(1)}
+        </a>
+      ))}
+      <Link href="/admin" className="font-medium hover:text-primary transition-colors">
         Admin
-      </a>
+      </Link>
     </>
   );
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border bg-background/70 backdrop-blur">
-      <div className="mx-auto flex h-14 max-w-[1200px] items-center justify-between px-4">
-        <Link href="/" className="font-semibold tracking-tight">
-          Qadir<span className="text-muted-foreground">.dev</span>
+    <header
+      className={`fixed top-0 left-0 z-50 w-full backdrop-blur-xl transition-all duration-300 ${scrolled
+          ? "bg-background/80 border-b border-border shadow-[0_4px_30px_rgba(0,0,0,0.08)]"
+          : "bg-transparent border-transparent"
+        }`}
+    >
+      <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-4">
+        {/* Logo */}
+        <Link
+          href="/"
+          className="flex text-lg font-bold tracking-tight text-primary hover:opacity-90"
+        >
+          <Image
+            src="/images/logo/logo.png"
+            alt="Unsplash"
+            width={120}
+            height={120}
+          />
+          <span className="text-red-500">.dev</span>
         </Link>
 
-        {/* Desktop */}
-        <nav className="hidden items-center gap-6 md:flex">
+        {/* Desktop Menu */}
+        <nav className="hidden md:flex items-center gap-8 text-sm">
           <NavLinks />
-          <ThemeToggle />
         </nav>
+        <div className="flex justify-center items-center gap-2">
+          <Button>Hire me</Button>
+          {/* <ThemeToggle /> */}
+          <ThemeToggle />
 
-        {/* Mobile */}
-        <div className="flex items-center gap-2 md:hidden">
+        </div>
+
+        {/* Mobile Menu Button */}
+        <div className="flex md:hidden items-center gap-2">
           <ThemeToggle />
           <button
-            onClick={() => setOpen((s) => !s)}
-            className="rounded-[--radius] border border-border px-3 py-2 text-sm"
-            aria-label="Menu"
+            onClick={() => setOpen((prev) => !prev)}
+            aria-label="Toggle menu"
+            className="rounded-[--radius] border border-border px-3 py-2 text-sm hover:bg-accent/40 transition-colors"
           >
             Menu
           </button>
         </div>
       </div>
 
-      {/* Mobile drawer */}
+      {/* Mobile Drawer */}
       {open && (
-        <div className="border-t border-border bg-background md:hidden">
-          <div className="mx-auto max-w-[1200px] px-4 py-4 text-sm">
-            <div className="flex flex-col gap-4">
-              <NavLinks />
-            </div>
+        <div className="md:hidden border-t border-border bg-background/90 backdrop-blur-lg transition-all duration-300">
+          <div className="mx-auto max-w-[1200px] px-4 py-4 text-sm flex flex-col gap-4">
+            <NavLinks />
           </div>
         </div>
       )}

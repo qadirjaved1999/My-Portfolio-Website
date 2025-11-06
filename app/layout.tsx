@@ -1,6 +1,6 @@
-// app/layout.tsx
 import "./globals.css";
 import { ReactNode } from "react";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata = {
   title: "Portfolio",
@@ -10,8 +10,8 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="min-h-dvh bg-background text-foreground antialiased">
-        {children}
+      <body suppressHydrationWarning  className="min-h-dvh bg-background text-foreground antialiased">
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

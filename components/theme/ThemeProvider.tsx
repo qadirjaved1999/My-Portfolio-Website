@@ -5,12 +5,18 @@ import { ReactNode } from "react";
 export function ThemeProvider({ children }: { children: ReactNode }) {
   return (
     <NextThemes
-      attribute="data-theme"
+      attribute="class"
       defaultTheme="system"
       enableSystem
       disableTransitionOnChange
+      value={{
+        light: "light",
+        dark: "dark",
+      }}
+      themes={["light", "dark"]}
     >
       {children}
     </NextThemes>
+
   );
 }
