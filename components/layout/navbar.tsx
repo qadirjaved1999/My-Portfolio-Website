@@ -29,7 +29,6 @@ export default function Navbar() {
         "projects",
         "skills",
         "blog",
-        "contact",
       ].map((id) => (
         <a
           key={id}
@@ -39,32 +38,33 @@ export default function Navbar() {
           {id.charAt(0).toUpperCase() + id.slice(1)}
         </a>
       ))}
-      <Link href="/admin" className="font-medium hover:text-primary transition-colors">
+      {/* <Link href="/admin" className="font-medium hover:text-primary transition-colors">
         Admin
-      </Link>
+      </Link> */}
     </>
   );
 
   return (
     <header
       className={`fixed top-0 left-0 z-50 w-full backdrop-blur-xl transition-all duration-300 ${scrolled
-          ? "bg-background/80 border-b border-border shadow-[0_4px_30px_rgba(0,0,0,0.08)]"
-          : "bg-transparent border-transparent"
+        ? "bg-background/80 border-b border-border shadow-[0_4px_30px_rgba(0,0,0,0.08)]"
+        : "bg-transparent border-transparent"
         }`}
     >
       <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-4">
         {/* Logo */}
         <Link
           href="/"
-          className="flex text-lg font-bold tracking-tight text-primary hover:opacity-90"
+          className="flex justify-center items-center text-lg font-bold tracking-tight text-primary hover:opacity-90"
         >
           <Image
-            src="/images/logo/logo.png"
-            alt="Unsplash"
-            width={120}
-            height={120}
+            src="/images/logo/logo3.svg"
+            alt="logo"
+            width={30}
+            height={30}
+            className="w-12 h-12 transition-all duration-300"
           />
-          <span className="text-red-500">.dev</span>
+          <h3 className="text-2xl font-bold">Qadir Javed</h3>
         </Link>
 
         {/* Desktop Menu */}
