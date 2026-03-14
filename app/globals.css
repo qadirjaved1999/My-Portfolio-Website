@@ -225,3 +225,17 @@ body {
     @apply bg-background text-foreground;
   }
 }
+/* ******************** */
+@keyframes glow-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Respect reduced motion (disable animation if user prefers) */
+@media (prefers-reduced-motion: reduce) {
+  [class*="animate-[glow-rotate"] {
+    animation: none !important;
+  }
+}
+

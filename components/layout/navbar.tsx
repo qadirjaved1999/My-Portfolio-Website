@@ -5,12 +5,13 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { ThemeToggle } from "../theme/ThemeToggle";
+import AnimatedNavLinks from "./AnimatedNavLinks";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Detect scroll to apply shadow or background
+  // Detect scroll to toggle glassmorphism + rounded style
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -38,20 +39,18 @@ export default function Navbar() {
           {id.charAt(0).toUpperCase() + id.slice(1)}
         </a>
       ))}
-      {/* <Link href="/admin" className="font-medium hover:text-primary transition-colors">
-        Admin
-      </Link> */}
     </>
   );
 
   return (
     <header
-      className={`fixed top-0 left-0 z-50 w-full backdrop-blur-xl transition-all duration-300 ${scrolled
-        ? "bg-background/80 border-b border-border shadow-[0_4px_30px_rgba(0,0,0,0.08)]"
-        : "bg-transparent border-transparent"
+      className={`fixed top-0 left-1/2 z-50 w-[92%] max-w-[1400px] -translate-x-1/2 transition-all duration-500 
+      ${scrolled
+          ? "top-4 backdrop-blur-2xl bg-background/60 border border-border/40 shadow-[0_6px_25px_rgba(209,43,183,0.25)] rounded-full"
+          : "bg-transparent border-transparent shadow-none rounded-none top-0"
         }`}
     >
-      <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-4">
+      <div className="flex h-16 items-center justify-between px-4 md:px-6">
         {/* Logo */}
         <Link
           href="/"
@@ -64,18 +63,23 @@ export default function Navbar() {
             height={30}
             className="w-12 h-12 transition-all duration-300"
           />
-          <h3 className="text-2xl font-bold">Qadir Javed</h3>
+          <h3 className="text-2xl font-bold ml-2">Qadir Javed</h3>
         </Link>
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex items-center gap-8 text-sm">
-          <NavLinks />
+          <AnimatedNavLinks />
         </nav>
-        <div className="flex justify-center items-center gap-2">
-          <Button>Hire me</Button>
-          {/* <ThemeToggle /> */}
-          <ThemeToggle />
 
+        {/* Right Side Buttons */}
+        <div className="flex justify-center items-center gap-2">
+          <Button
+            variant="outline"
+            className="rounded-full border-[#D12BB7] text-[#D12BB7] hover:bg-[#D12BB7]/10"
+          >
+            Let’s Talk
+          </Button>
+          <ThemeToggle />
         </div>
 
         {/* Mobile Menu Button */}
@@ -93,7 +97,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {open && (
-        <div className="md:hidden border-t border-border bg-background/90 backdrop-blur-lg transition-all duration-300">
+        <div className="md:hidden border-t border-border bg-background/90 backdrop-blur-lg transition-all duration-300 rounded-b-2xl">
           <div className="mx-auto max-w-[1200px] px-4 py-4 text-sm flex flex-col gap-4">
             <NavLinks />
           </div>

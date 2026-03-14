@@ -44,7 +44,7 @@ export default function ProfileCircle() {
   ];
 
   return (
-    <div className="relative w-[20rem] h-[20rem] flex items-center justify-center">
+    <div className="relative w-120 h-120 flex items-center justify-center">
       {/* Main rotating orbit */}
       <motion.div
         animate={controls}
@@ -54,8 +54,8 @@ export default function ProfileCircle() {
       >
         {socialLinks.map((item, i) => {
           const angle = (i / socialLinks.length) * 2 * Math.PI;
-          const x = Math.round(Math.cos(angle) * 160 * 1000) / 1000;
-          const y = Math.round(Math.sin(angle) * 160 * 1000) / 1000;
+          const x = Math.round(Math.cos(angle) * 240 * 1000) / 1000;
+          const y = Math.round(Math.sin(angle) * 240 * 1000) / 1000;
           const delay = i * 0.25;
 
           return (
@@ -109,9 +109,9 @@ export default function ProfileCircle() {
       </motion.div>
 
       {/* Profile image */}
-      <div className="relative w-62 h-62 border-4 border-[#D12BB7] rounded-full overflow-hidden shadow-[0_0_40px_#D12BB7]">
+      <div className="relative w-92 h-92 border-4 border-[#D12BB7] rounded-full overflow-hidden shadow-[0_0_40px_#D12BB7]">
         <Image
-          src="/images/hero/profile1.jpeg"
+          src="/images/hero/profile2.jpeg"
           alt="Profile"
           height={600}
           width={600}
